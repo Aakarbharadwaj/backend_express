@@ -57,6 +57,21 @@ app.get("/details/:username", (req, res) => {
 //       ))
 //     // req.send(products.filter(item => item.title.toLowerCase() === a.name.toLowerCase().toString()));
 // })
+
+//7 Implement an endpoint to retrieve products with ratings above 4.5.
+app.get("/products/rating/:rating",(req,res)=>{
+    const ratings = req.params;
+    res.send(products.filter(item=> item.rating > ratings.rating));
+})
+
+
+//8 Create an API to fetch products with stock availability less than 50.
+app.get("/products/stock/:stock",(req,res)=>{
+    const available = req.params;
+    res.send(products.filter(item=>item.stock < available.stock));
+})
+
+
 app.listen(port, () => {
     console.log(`server is running on ${port}`);
 });
