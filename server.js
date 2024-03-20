@@ -59,19 +59,32 @@ app.get("/details/:username", (req, res) => {
 // })
 
 //7 Implement an endpoint to retrieve products with ratings above 4.5.
-app.get("/products/rating/:rating",(req,res)=>{
+app.get("/products/rating/:rating", (req, res) => {
     const ratings = req.params;
-    res.send(products.filter(item=> item.rating > ratings.rating));
+    res.send(products.filter(item => item.rating > ratings.rating));
 })
 
 
 //8 Create an API to fetch products with stock availability less than 50.
-app.get("/products/stock/:stock",(req,res)=>{
+app.get("/products/stock/:stock", (req, res) => {
     const available = req.params;
-    res.send(products.filter(item=>item.stock < available.stock));
+    res.send(products.filter(item => item.stock < available.stock));
+})
+
+//9 Implement an endpoint to sort products based on their price in ascending order.
+// app.get("products/priceorder/",(req,res)=>{
+//     res.send()
+// })
+
+//10 Develop an API to retrieve products with a discount percentage between 5% and 15%.
+app.get("/products/discount/:discount", (req, res) => {
+    const discount = req.params;
+    res.send(products.filter(item => item.discountPercentage > discount.discount && item.discountPercentage < 15 ))
 })
 
 
+//11 Create an API endpoint to retrieve products sorted by their ratings in descending order.
+app.get("/products/")
 app.listen(port, () => {
     console.log(`server is running on ${port}`);
 });
