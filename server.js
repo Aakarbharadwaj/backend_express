@@ -39,7 +39,7 @@ app.get("/products/price/:price?", (req, res) => {
 })
 
 //5
-app.get("/product/category/:category", (req, res) => {
+app.get("/products/category/:category", (req, res) => {
     const category = req.params;
     res.send(products.filter(item => item.category === category.category));
 })
@@ -57,6 +57,25 @@ app.get("/details/:username", (req, res) => {
 //       ))
 //     // req.send(products.filter(item => item.title.toLowerCase() === a.name.toLowerCase().toString()));
 // })
+
+//6 
+app.get("/products/searchkey", (req, res) => {
+    const searchkey = req.query.searchkey;
+
+    res.send(products.filter(item =>
+        item.description.toLowerCase().includes(searchkey) ||
+        item.title.toLowerCase().includes(searchkey)
+    ))
+})
+
+// app.get("/products/searchkey", (req, res) => {
+//     const searchkey = req.query.searchkey;
+
+//     res.send(products.filter(item => 
+//         item.description.toLowerCase().includes(searchkey) ||
+//         item.title.toLowerCase().includes(searchkey)
+//     ));
+// });
 
 //7 Implement an endpoint to retrieve products with ratings above 4.5.
 app.get("/products/rating/:rating", (req, res) => {
@@ -77,11 +96,18 @@ app.get("/products/stock/:stock", (req, res) => {
 // })
 
 //10 Develop an API to retrieve products with a discount percentage between 5% and 15%.
-app.get("/products/discount/:discount", (req, res) => {
+app.get("/products/discount/:discountmin/:discountmax", (req, res) => {
     const discount = req.params;
-    res.send(products.filter(item => item.discountPercentage > discount.discount && item.discountPercentage < 15 ))
+    res.send(products.filter(item => item.discountPercentage > discount.discountmin && item.discountPercentage < discount.discountmax))
 })
+//eg.
 
+app.get("/products/category/brand/ok", (req, res) => {
+    const brand = req.query.brand
+    ;
+    const category = req.query.c;
+    res.send(products.filter(item => item.brand.toLowerCase().includes(brand) || item.category.toLowerCase().includes(category)));
+})
 
 //11 Create an API endpoint to retrieve products sorted by their ratings in descending order.
 app.get("/products/")
